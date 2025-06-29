@@ -17,7 +17,10 @@ public enum ErrorCode {
     USERNAME_INVALID(1004, "Username must be atleast {min} letters", HttpStatus.BAD_REQUEST),
     PASSWORD_INVALID(1005, "Password must be at least {min} letters", HttpStatus.BAD_REQUEST),
     UNAUTHENTICATED(1006, "Invalid email or password", HttpStatus.UNAUTHORIZED),
-    INVALID_TOKEN(1007,"Missing token at header or token is expired", HttpStatus.UNAUTHORIZED)
+    INVALID_TOKEN(1007,"Missing token at header or token is expired", HttpStatus.UNAUTHORIZED),
+    PERMISSION_EXIST(1008,"Permission is already exist", HttpStatus.BAD_REQUEST),
+    PERMISSION_NOT_EXIST(1010,"Permission is not exist", HttpStatus.BAD_REQUEST),
+    INVALID_API_PATH(1009,"apiPath must start with '/api/v1/' followed by a module name", HttpStatus.BAD_REQUEST)
     ;
 
     int code;

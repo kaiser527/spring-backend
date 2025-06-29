@@ -101,6 +101,7 @@ public class AuthService {
         return AuthResponse.builder()
             .token(token)
             .isAuthenticated(authenticated)
+            .user(userMapper.toUserResponse(user))
             .build();
     }
 
@@ -120,6 +121,32 @@ public class AuthService {
         } catch (AppException e) {
             log.info("Token is already expired");
         }
+    }
+
+    public AuthResponse refreshToken(String token) throws JOSEException, ParseException {
+        SignedJWT signToken = verifyToken(token, true);
+
+        String jit = signToken.getJWTClaimsSet().getJWTID();
+        Date expiryTime = signToken.getJWTClaimsSet().getExpirationTime();
+    
+        BlacklistToken blacklistToken = BlacklistToken.builder()
+            .id(jit)
+            .expiryTime(expiryTime)
+            .build();
+    
+        blacklistTokenRepository.save(blacklistToken);
+
+        String email = signToken.getJWTClaimsSet().getSubject();
+
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new AppException(ErrorCode.UNAUTHENTICATED));
+
+        String access_token = generateToken(user);
+
+        return AuthResponse.builder()
+            .token(access_token)
+            .isAuthenticated(true)
+            .user(userMapper.toUserResponse(user))
+            .build();
     }
 
     private SignedJWT verifyToken(String token, boolean isRefresh) throws JOSEException, ParseException {

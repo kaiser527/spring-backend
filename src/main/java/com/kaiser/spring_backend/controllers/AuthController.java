@@ -28,7 +28,10 @@ public class AuthController {
     ApiResponse<AuthResponse> login(@RequestBody AuthRequest request) {
         AuthResponse result = authService.login(request);
 
-        return ApiResponse.<AuthResponse>builder().result(result).build();
+        return ApiResponse.<AuthResponse>builder()
+            .message("User login")
+            .result(result)
+            .build();
     }
 
     @GetMapping("/account")
@@ -36,6 +39,7 @@ public class AuthController {
         UserResponse result = authService.getAccount();
 
         return ApiResponse.<UserResponse>builder()
+            .message("Get user account")
             .result(result)
             .build();
     }
@@ -45,6 +49,19 @@ public class AuthController {
         String token = authHeader.substring(7);
         authService.logout(token);
         
-        return ApiResponse.<Void>builder().message("User logout").build();
+        return ApiResponse.<Void>builder()
+            .message("User logout")
+            .build();
+    }
+
+    @PostMapping("/refresh")
+    ApiResponse<AuthResponse> refresh(@RequestHeader("Authorization") String authHeader) throws JOSEException, ParseException {
+        String token = authHeader.substring(7);
+        AuthResponse result = authService.refreshToken(token);
+        
+        return ApiResponse.<AuthResponse>builder()
+            .message("Refresh new token")
+            .result(result)
+            .build();
     }
 }

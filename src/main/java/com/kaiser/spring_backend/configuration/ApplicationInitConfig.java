@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.kaiser.spring_backend.constants.AccountType;
 import com.kaiser.spring_backend.entities.User;
 import com.kaiser.spring_backend.repositories.UserRepository;
 import lombok.AccessLevel;
@@ -33,7 +34,7 @@ public class ApplicationInitConfig {
                     .password(passwordEncoder.encode("123456"))
                     .isActive(true)
                     .image("default.png")
-                    .accountType("LOCAL")
+                    .accountType(AccountType.LOCAL)
                     .build();
 
                 userRepository.save(user);

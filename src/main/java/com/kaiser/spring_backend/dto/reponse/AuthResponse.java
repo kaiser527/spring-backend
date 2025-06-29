@@ -12,4 +12,6 @@ public class AuthResponse {
     String token;
 
     boolean isAuthenticated;
+
+    UserResponse user;
 }

@@ -1,10 +1,15 @@
 package com.kaiser.spring_backend.entities;
 
 import java.time.LocalDateTime;
-import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import com.kaiser.spring_backend.constants.AccountType;
+import com.kaiser.spring_backend.constants.ApiMethod;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -14,29 +19,23 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
 
     @NonNull
-    String email;
+    String name;
 
     @NonNull
-    String password;
-
-    @NonNull
-    String username;
-
-    @NonNull
-    String image;
-
-    @NonNull
-    Boolean isActive;
+    String apiPath;
 
     @NonNull
     @Enumerated(EnumType.STRING)
-    AccountType accountType;
+    ApiMethod method;
+
+    @NonNull
+    String module;
 
     String createdBy;
 
