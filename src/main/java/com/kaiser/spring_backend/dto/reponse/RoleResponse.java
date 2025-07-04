@@ -1,6 +1,7 @@
 package com.kaiser.spring_backend.dto.reponse;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,26 +10,22 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserResponse {
+public class RoleResponse {
     String id;
 
-    String email;
+    String name;
 
-    String username;
-
-    String image;
+    String description;
 
     Boolean isActive;
-
-    String accountType;
 
     LocalDateTime createdAt;
 
     LocalDateTime updatedAt;
 
-    RoleResponse role;
+    Set<PermissionResponse> permission;
 }

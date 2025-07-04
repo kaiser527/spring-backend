@@ -16,3 +16,6 @@ jwt:
   signerKey: zN/gkNC3dQIrDfQQ2Yyv9zo/OyEc6t/BjI20zDPNY+v2i1W69TVL2rJNJkXsGLi7
   valid-duration: 300
   refreshable-duration: 604800
+role:
+  user: 774ef022-d02a-4f37-bdf3-54d81b6c0728
+  admin: 2a55ae87-32e1-4f5f-96ab-16680fef8354

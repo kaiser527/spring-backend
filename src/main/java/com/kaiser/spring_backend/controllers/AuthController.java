@@ -11,8 +11,10 @@ import com.kaiser.spring_backend.dto.reponse.ApiResponse;
 import com.kaiser.spring_backend.dto.reponse.AuthResponse;
 import com.kaiser.spring_backend.dto.reponse.UserResponse;
 import com.kaiser.spring_backend.dto.request.AuthRequest;
+import com.kaiser.spring_backend.dto.request.CreateUserRequest;
 import com.kaiser.spring_backend.services.AuthService;
 import com.nimbusds.jose.JOSEException;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -61,6 +63,16 @@ public class AuthController {
         
         return ApiResponse.<AuthResponse>builder()
             .message("Refresh new token")
+            .result(result)
+            .build();
+    }
+
+    @PostMapping("/register")
+    ApiResponse<UserResponse> register(@RequestBody @Valid CreateUserRequest request){
+        UserResponse result = authService.register(request);
+
+        return ApiResponse.<UserResponse>builder()
+            .message("Register")
             .result(result)
             .build();
     }

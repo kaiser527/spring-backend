@@ -1,17 +1,14 @@
 package com.kaiser.spring_backend.entities;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.kaiser.spring_backend.enums.ApiMethod;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -21,7 +18,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Permission {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
@@ -30,14 +27,10 @@ public class Permission {
     String name;
 
     @NonNull
-    String apiPath;
+    String description;
 
     @NonNull
-    @Enumerated(EnumType.STRING)
-    ApiMethod method;
-
-    @NonNull
-    String module;
+    Boolean isActive;
 
     String createdBy;
 
@@ -48,4 +41,7 @@ public class Permission {
 
     @UpdateTimestamp
     LocalDateTime updatedAt;
+
+    @ManyToMany
+    Set<Permission> permission;
 }

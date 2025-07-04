@@ -1,7 +1,7 @@
 package com.kaiser.spring_backend.dto.request;
 
+import com.kaiser.spring_backend.enums.AccountType;
 import jakarta.validation.constraints.Size;
-import com.kaiser.spring_backend.constants.AccountType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,4 +19,6 @@ public class UpdateUserRequest {
     Boolean isActive;
 
     AccountType accountType;
+
+    String roleId;
 }

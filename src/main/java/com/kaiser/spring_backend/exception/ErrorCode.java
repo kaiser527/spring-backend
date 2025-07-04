@@ -20,7 +20,11 @@ public enum ErrorCode {
     INVALID_TOKEN(1007,"Missing token at header or token is expired", HttpStatus.UNAUTHORIZED),
     PERMISSION_EXIST(1008,"Permission is already exist", HttpStatus.BAD_REQUEST),
     PERMISSION_NOT_EXIST(1010,"Permission is not exist", HttpStatus.BAD_REQUEST),
-    INVALID_API_PATH(1009,"apiPath must start with '/api/v1/' followed by a module name", HttpStatus.BAD_REQUEST)
+    INVALID_API_PATH(1009,"apiPath must start with '/api/v1/' followed by a module name", HttpStatus.BAD_REQUEST),
+    ROLE_NOT_EXIST(1011,"Role is not exist", HttpStatus.BAD_REQUEST),
+    DELETE_ADMIN_USER(1012,"Cannot delete admin user", HttpStatus.BAD_REQUEST),
+    ROLE_EXIST(1013,"Role is already exist", HttpStatus.BAD_REQUEST),
+    DELETE_ADMIN_ROLE(1014,"Cannot delete admin role", HttpStatus.BAD_REQUEST)
     ;
 
     int code;

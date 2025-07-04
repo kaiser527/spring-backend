@@ -2,6 +2,7 @@ package com.kaiser.spring_backend.controllers;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -29,6 +30,7 @@ public class PermissionController {
     PermissionService permissionService;
 
     @PostMapping
+    @PreAuthorize("@customPermissionEvaluator.hasPermission('/api/v1/permission', 'POST')")
     ApiResponse<PermissionResponse> createPermission(@RequestBody @Valid PermissionRequest request){
         PermissionResponse result = permissionService.createPermission(request);
 
@@ -39,6 +41,7 @@ public class PermissionController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("@customPermissionEvaluator.hasPermission('/api/v1/permission/:id', 'PATCH')")
     ApiResponse<PermissionResponse> updatePermission(@PathVariable("id") String id, @RequestBody @Valid PermissionRequest request ){
         PermissionResponse result = permissionService.updatePermission(id, request);
 
@@ -49,6 +52,7 @@ public class PermissionController {
     }
 
     @GetMapping
+    @PreAuthorize("@customPermissionEvaluator.hasPermission('/api/v1/permission', 'GET')")
     ApiResponse<PaginatedResponse<PermissionResponse>> getPermissionPaginated(@RequestParam int pageSize, @RequestParam int pageNumber){
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
         PaginatedResponse<PermissionResponse> result = permissionService.getPermissionPaginated(pageable);
@@ -60,6 +64,7 @@ public class PermissionController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("@customPermissionEvaluator.hasPermission('/api/v1/permission/:id', 'DELETE')")
     ApiResponse<PermissionResponse> deletePermission(@PathVariable("id") String id){
         PermissionResponse result = permissionService.deletePermission(id);
 

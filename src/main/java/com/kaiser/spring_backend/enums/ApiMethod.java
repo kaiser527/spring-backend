@@ -1,4 +1,4 @@
-package com.kaiser.spring_backend.constants;
+package com.kaiser.spring_backend.enums;
 
 public enum ApiMethod {
     GET,

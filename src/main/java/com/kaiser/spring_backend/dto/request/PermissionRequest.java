@@ -1,6 +1,6 @@
 package com.kaiser.spring_backend.dto.request;
 
-import com.kaiser.spring_backend.constants.ApiMethod;
+import com.kaiser.spring_backend.enums.ApiMethod;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

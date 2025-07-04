@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import com.kaiser.spring_backend.constants.AccountType;
+import com.kaiser.spring_backend.enums.AccountType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -47,4 +47,7 @@ public class User {
 
     @UpdateTimestamp
     LocalDateTime updatedAt;
+
+    @ManyToOne
+    Role role;
 }

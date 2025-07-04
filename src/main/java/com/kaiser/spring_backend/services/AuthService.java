@@ -13,13 +13,16 @@ import com.kaiser.spring_backend.dto.reponse.AuthResponse;
 import com.kaiser.spring_backend.dto.reponse.IntrospectResponse;
 import com.kaiser.spring_backend.dto.reponse.UserResponse;
 import com.kaiser.spring_backend.dto.request.AuthRequest;
+import com.kaiser.spring_backend.dto.request.CreateUserRequest;
 import com.kaiser.spring_backend.dto.request.IntrospectRequest;
 import com.kaiser.spring_backend.entities.BlacklistToken;
+import com.kaiser.spring_backend.entities.Role;
 import com.kaiser.spring_backend.entities.User;
 import com.kaiser.spring_backend.exception.AppException;
 import com.kaiser.spring_backend.exception.ErrorCode;
 import com.kaiser.spring_backend.mapper.UserMapper;
 import com.kaiser.spring_backend.repositories.BlacklistTokenRepository;
+import com.kaiser.spring_backend.repositories.RoleRepository;
 import com.kaiser.spring_backend.repositories.UserRepository;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
@@ -47,6 +50,7 @@ public class AuthService {
     PasswordEncoder passwordEncoder;
     BlacklistTokenRepository blacklistTokenRepository;
     UserMapper userMapper;
+    RoleRepository roleRepository;
     
     @NonFinal
     @Value("${jwt.signerKey}")
@@ -59,6 +63,10 @@ public class AuthService {
     @NonFinal
     @Value("${jwt.refreshable-duration}")
     protected long REFRESHABLE_DURATION;
+
+    @NonFinal
+    @Value("${role.user}")
+    protected String USER_ROLE;
 
     public IntrospectResponse introspect (IntrospectRequest request) throws JOSEException, ParseException {
         String token = request.getToken();
@@ -103,6 +111,22 @@ public class AuthService {
             .isAuthenticated(authenticated)
             .user(userMapper.toUserResponse(user))
             .build();
+    }
+
+    public UserResponse register(CreateUserRequest request){
+        if(userRepository.existsByEmail(request.getEmail())){
+            throw new AppException(ErrorCode.USER_EXISTED);
+        }
+
+        Role role = roleRepository.findById(USER_ROLE).orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_EXIST));
+        
+        User user = userMapper.toCreateUser(request);
+
+        user.setRole(role);
+
+        userRepository.save(user);
+
+        return userMapper.toUserResponse(user);
     }
 
     public void logout(String token) throws JOSEException, ParseException {
@@ -189,6 +213,7 @@ public class AuthService {
                 Instant.now().plus(VALID_DURATION, ChronoUnit.SECONDS).toEpochMilli()
             ))
             .jwtID(UUID.randomUUID().toString())
+            .claim("role", user.getRole().getName())
             .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
