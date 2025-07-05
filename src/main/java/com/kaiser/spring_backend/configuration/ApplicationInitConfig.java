@@ -47,6 +47,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.GET)
                     .name("Get user Fetch user paginate")
                     .module("USER")
+                    .createdBy("system")
                     .build());
                 
                 Permission createUser = permissionRepository.save(Permission.builder()
@@ -54,6 +55,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.POST)
                     .name("Create user")
                     .module("USER")
+                    .createdBy("system")
                     .build());
 
                 Permission updateUser = permissionRepository.save(Permission.builder()
@@ -61,6 +63,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.PATCH)
                     .name("Update user")
                     .module("USER")
+                    .createdBy("system")
                     .build());
 
                 Permission deleteUser = permissionRepository.save(Permission.builder()
@@ -68,6 +71,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.DELETE)
                     .name("Delete user")
                     .module("USER")
+                    .createdBy("system")
                     .build());
 
                 //permission
@@ -76,6 +80,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.POST)
                     .name("Create permission")
                     .module("PERMISSION")
+                    .createdBy("system")
                     .build());
 
                 Permission getPermission = permissionRepository.save(Permission.builder()
@@ -83,6 +88,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.GET)
                     .name("Fetch permission paginate")
                     .module("PERMISSION")
+                    .createdBy("system")
                     .build());
 
                 Permission updatePermission = permissionRepository.save(Permission.builder()
@@ -90,6 +96,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.PATCH)
                     .name("Update permission")
                     .module("PERMISSION")
+                    .createdBy("system")
                     .build());
                 
                 Permission deletePermission = permissionRepository.save(Permission.builder()
@@ -97,6 +104,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.DELETE)
                     .name("Delete permission")
                     .module("PERMISSION")
+                    .createdBy("system")
                     .build());
 
                 //role
@@ -105,6 +113,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.GET)
                     .name("Fetch role paginate")
                     .module("ROLE")
+                    .createdBy("system")
                     .build());
 
                 Permission getSingleRole = permissionRepository.save(Permission.builder()
@@ -112,6 +121,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.GET)
                     .name("Fetch role by id")
                     .module("ROLE")
+                    .createdBy("system")
                     .build());
 
                 Permission createRole = permissionRepository.save(Permission.builder()
@@ -119,6 +129,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.POST)
                     .name("Create role")
                     .module("ROLE")
+                    .createdBy("system")
                     .build());
 
                 Permission updateRole = permissionRepository.save(Permission.builder()
@@ -126,6 +137,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.PATCH)
                     .name("Update role")
                     .module("ROLE")
+                    .createdBy("system")
                     .build());
 
                 Permission deleteRole = permissionRepository.save(Permission.builder()
@@ -133,6 +145,7 @@ public class ApplicationInitConfig {
                     .method(ApiMethod.DELETE)
                     .name("Delete role")
                     .module("ROLE")
+                    .createdBy("system")
                     .build());
 
                 Set<Permission> permissions = new HashSet<Permission>();
@@ -157,12 +170,14 @@ public class ApplicationInitConfig {
                     .name("TESTER")
                     .description("Tester role")
                     .isActive(true)
+                    .createdBy("system")
                     .build());
 
                 Role userRole = roleRepository.save(Role.builder()
                     .name("USER")
                     .description("User role")
                     .isActive(true)
+                    .createdBy("system")
                     .build());
 
                 Role adminRole = roleRepository.save(Role.builder()
@@ -170,6 +185,7 @@ public class ApplicationInitConfig {
                     .description("Admin role")
                     .isActive(true)
                     .permission(permissions)
+                    .createdBy("system")
                     .build());
 
                 //init user
