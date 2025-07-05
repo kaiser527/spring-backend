@@ -123,6 +123,7 @@ public class AuthService {
         User user = userMapper.toCreateUser(request);
 
         user.setRole(role);
+        user.setCreatedBy("system");
 
         userRepository.save(user);
 
